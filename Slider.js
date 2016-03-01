@@ -236,7 +236,7 @@ var Slider = React.createClass({
   _handlePanResponderEnd: function(e: Object, gestureState: Object) {
     var value = this._getValue(gestureState);
     if (this.props.hasOwnProperty('stepValue')) {
-      value = Math.round(this._getValue(gestureState) /  this.props.stepValue) * this.props.step;
+      value = Math.round(this._getValue(gestureState) /  this.props.stepValue) * this.props.stepValue;
     }
     this.setState({ value: value },
       this._fireChangeEvent.bind(this, 'onSlidingComplete'));
