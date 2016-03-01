@@ -39,6 +39,11 @@ var Slider = React.createClass({
     value: PropTypes.number,
 
     /**
+     * Value of increments. Default value is 0.
+     */
+    stepValue: PropTypes.number,
+
+    /**
      * Initial minimum value of the slider. Default value is 0.
      */
     minimumValue: PropTypes.number,
@@ -229,7 +234,11 @@ var Slider = React.createClass({
       this._fireChangeEvent.bind(this, 'onValueChange'));
   },
   _handlePanResponderEnd: function(e: Object, gestureState: Object) {
-    this.setState({ value: this._getValue(gestureState) },
+    var value = this._getValue(gestureState);
+    if (this.props.hasOwnProperty('stepValue')) {
+      value = Math.round(this._getValue(gestureState) /  this.props.stepValue) * this.props.step;
+    }
+    this.setState({ value: value },
       this._fireChangeEvent.bind(this, 'onSlidingComplete'));
   },
 
